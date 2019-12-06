@@ -8,8 +8,9 @@ apt install -y nginx  (debian)
 ## 2 git clone Nginx-config-admin
 git clone https://github.com/wanglixiang90/Nginx-config-admin.git
 
-## 3 check python version, run on python3.7
-python -V  or python3 -V
+## 3 check python version, use python3.7, install requires
+python -V  or python3 -V <br>
+pip install -r requires.txt
 
 ## 4 run app
 python app.py
