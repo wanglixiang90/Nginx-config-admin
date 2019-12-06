@@ -1,0 +1,9 @@
+
+upstream {{ ups_name }} { {% for up in ups %}
+    server {{ up }};{% endfor %}
+}
+
+server {
+    listen  {{ server_port }};
+    proxy_pass  {{ ups_name }};
+}

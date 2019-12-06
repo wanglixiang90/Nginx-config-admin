@@ -1,0 +1,38 @@
+    .table-div, .table * {
+        margin: 10px auto 10px 10px ; padding:10px 10px 5px 10px;font-size: 18px;font-family: Arial, Helvetica, sans-serif;
+    }
+    .table-div {
+        display: table;border-collapse: collapse;
+    }
+    .table-tr {
+        display: table-row; height: 40px;
+    }
+    .table-th {
+        display: table-cell;font-weight: bold;height: 100%;text-align: left;vertical-align: middle;
+    }
+    .table-td {
+        display: table-cell;height: 100%;text-align: left;vertical-align: middle;
+    }
+
+    .th1, .td1{  width:180px;padding:8px 10px 5px 10px;word-break: break-all; }
+    .th2, .td2{  width:100px;text-align:center; }
+    .th3, .td3{  width:250px; }
+
+    .crtd1{  width:100px;text-align:right;font-size: 15px;margin:  }
+    .crtd2{  width:460px;text-align:left;padding-left: 20px;font-size: 15px; }
+    .crst_div{ margin: 10px auto 0 70px; }
+
+    .name-edit{
+        width: 160px;
+        position: relative;
+    }
+
+    .define-modal{
+        position: absolute;
+        top:30px;
+        left:160px;
+        //width: 290px;
+        //height: 200px;
+        //z-index: 99;
+    }
+

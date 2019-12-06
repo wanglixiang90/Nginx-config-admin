@@ -1,0 +1,77 @@
+
+    .main-container{
+        width: 990px;
+        margin: 0 auto;
+        overflow: hidden;
+    }
+
+    .lg-container{
+        width: 800px;
+        float: right;
+        height: auto !important;
+        height: 100px;
+        min-height:600px;
+    }
+
+    .sm-container{
+        width: 160px;
+        float: left;
+    }
+
+    .right{
+        float:right;
+        /*_position:relative;*/
+        text-align: end;
+    }
+
+    ul { padding: 0 0 0 10px; }
+    li {list-style-type:none;}
+
+    .box{
+        vertical-align: middle;
+        text-align: left;
+        padding-left: 10px;
+    }
+
+    .p{
+        font-size: 16px;
+        margin: 0 auto;
+        padding: 0 0 0 0;
+        background: #ffffff;
+        border: 0px;
+    }
+
+    .msg{
+        width: 700px;
+    }
+
+    .light {
+        width: 16px;
+        height: 16px;
+        border-radius: 90%;
+        display: inline-block;
+    }
+
+    .on {
+        background: #00ff00;
+    }
+
+    .warn {
+        background: #ffff00;
+    }
+
+    .error {
+        background: #ff0000;
+    }
+
+    .off {
+        background: #818181;
+    }
+
+    .tbl-lg{
+        padding: 5px 10px;
+    }
+    th{
+        text-align: center; /** 设置水平方向居中 */
+        vertical-align: center; /** 设置垂直方向居中 */
+    }

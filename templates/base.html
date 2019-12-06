@@ -1,0 +1,77 @@
+{% macro static(filename) %}
+    {{ url_for('static',filename=filename) }}
+{% endmacro %}
+
+<head>
+    <meta charset="UTF-8">
+{#    <meta name="csrf-token" content="{{ csrf_token() }}">#}
+    <title>{% block title %}{% endblock %}</title>
+
+    <script src="{{ static('js/jquery-3.2.1.min.js') }}"></script>
+    <link rel="stylesheet" href="{{ static('bootstrap/css/bootstrap.min.css') }}" >
+    <script src="{{ static('bootstrap/js/bootstrap.min.js') }}"></script>
+
+    <link rel="stylesheet" href="{{ static('codemirror/lib/codemirror.css') }}" >
+    <link rel="stylesheet" href="{{ static('codemirror/theme/eclipse.css') }}" >
+
+    <script src="{{ static('codemirror/lib/codemirror.js') }}"></script>
+    <script src="{{ static('codemirror/addon/mode/loadmode.js') }}"></script>
+    <script src="{{ static('codemirror/mode/meta.js') }}"></script>
+
+    <script src="{{ url_for('static', filename='toaster/toast.script.js') }}"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='toaster/toast.style.css') }}">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/cmeditor.css') }}">
+    <script src="{{ url_for('static', filename='js/base.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/basebtn.js') }}"></script>
+
+    {% block head %}{% endblock %}
+
+</head>
+
+<body>
+<div class="main-container">
+	<h1>Nginx config admin</h1>
+
+<div class="sm-container">
+        <label>Status</label>
+        <ul>
+            <div id="status-box" class="box" style="width:120px;display:flex;vertical-align: center;">
+
+                    <div style="width:23px;display:flex;"><div id="light" style="margin-top: 3px;" class="light off"></div></div>
+                    <div style="display:flex;"><p id="status-plain">stop</p></div>
+
+                <div id="id-clear" style="clear:both"></div>
+            </div>
+        </ul>
+
+        <label>Action</label>
+        <ul>
+            <li><button id="start" class="btn btn-link btn-default">开启</button></li>
+            <li><button id="stop" class="btn btn-link btn-default">关闭</button></li>
+            <li><button id="reload" class="btn btn-link btn-default">重载</button></li>
+            <li><button id="test" class="btn btn-link btn-default">测试</button></li>
+        </ul>
+
+        <label>Nginx.conf</label>
+        <ul>
+            {#<li><button id="ngxconf_add" class="btn btn-link btn-default">新建</button></li>#}
+            <li><button id="ngxconf_edit" class="btn btn-link btn-default">编辑</button></li>
+        </ul>
+        {% if g.username == "admin" %}
+        <label>User</label>
+        <ul>
+            <li><button id="user_edit" class="btn btn-link btn-default">编辑</button></li>
+        </ul>
+        {% endif %}
+
+</div>
+
+    {% block body %}
+            lg-container
+    {% endblock %}
+
+</div>
+
+</body>

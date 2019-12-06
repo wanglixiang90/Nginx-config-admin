@@ -1,0 +1,138 @@
+{% extends "base.html" %}
+
+{% block title %}Nginx config admin{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/server.css') }}">
+    <script src="{{ url_for('static', filename='js/serverbtn.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+<div class="lg-container">
+    <div  class="box" style="width:500px;display:flex;align-items:flex-end;">
+        <div style="width:100px;display:inline-block;padding-left: 24px;"><h2>Server</h2></div>
+        <!-- 按钮触发模态框 -->
+        <div style="display:inline-block;margin-left: 345px;"><button id="ngxconf_add-bak" class="btn btn-link btn-lg right" data-toggle="modal" data-target="#add_server_Modal">新增</button></div>
+        <div  style="clear:both"></div>
+    </div>
+
+    <div class="modal fade" id="add_server_Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">新建server</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="fm_svr_add" action="" method="post">
+                        <div class="table-div">
+                            <div class="table-tr ">
+                            <div class="table-td crtd1"><label>domain名称 </label></div>
+                            <div class="table-td crtd2"><input type="text" name="name" class="form-control" style="width: 353px;" placeholder="domain.com" /></div>
+                            </div>
+                            <div class="clearfix" style="margin-bottom: 10px;"></div>
+                            <div class="table-tr ">
+                            <div class="table-td crtd1"><label>server端口 </label></div>
+                            <div class="table-td crtd2"><input type="text" name="serverport" class="form-control" style="width: 353px;" placeholder="80" /></div>
+                            </div>
+                            <div class="clearfix" style="margin-bottom: 10px;"></div>
+                            <div class="table-tr ">
+                            <div class="table-td crtd1"><label>server类型 </label></div>
+                            <div class="table-td crtd2">
+                                <input type="radio" class="radio radio-inline" name="servertype" value="httpproxy" checked="true" />HTTP代理
+                                <input type="radio" class="radio radio-inline" name="servertype" value="fileserver" />文件服务
+                                <input type="radio" class="radio radio-inline" name="servertype" value="tcpproxy" />TCP代理
+                                <input type="radio" class="radio radio-inline" name="servertype" value="udpproxy" />UDP代理
+                            </div>
+                            </div>
+                            <div class="clearfix" style="margin-bottom: 10px;"></div>
+                            <div class="table-tr ">
+                            <div class="table-td crtd1"><label id="fm_lable">后端服务器 </label> </div>
+                            <div class="table-td crtd2">
+                                <textarea id="ups_text" name="upstream" class="form-control" wrap="physical" style="width:353px;height:90px;" placeholder="IP address:port &#13;&#10;default 127.0.0.1:8080"></textarea>
+                                <textarea id="filepath" name="filepath" class="form-control" wrap="physical" style="width:353px;height:68px;display: none;" placeholder="default location / &#13;&#10;default root path /var/www/html"></textarea>
+                            </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" id="svr_add" class="btn btn-primary">增加</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+    <div class="modal fade" id="rename_server_Modal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" id="myModalLabel">Server名称修改</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="fm_svr_rename" action="" method="post">
+                        <div class="table-div">
+                            <div class="table-tr ">
+                            <div class="table-td crtd2">
+                                <input type="text" id="rename_input" name="name" class="form-control" style="width: 180px;"/>
+                                <input type=hidden id="src_name" name="src_name" class="form-control"/>
+                                <input type=hidden id="suff" name="suff" class="form-control"/>
+                            </div>
+                            </div>
+                            <div class="clearfix" style="margin-bottom: 10px;"></div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="button" id="svr_rename" class="btn btn-primary">提交</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal -->
+    </div>
+
+    <div id="tbl-svr" class="table-div"></div>
+
+</div>
+    <script type="text/javascript">
+    $(function () {
+        $('input:radio[name="servertype"]').click(function(){
+            var checkValue = $('input:radio[name="servertype"]:checked').val();
+            if (checkValue == "fileserver") {
+                $('#fm_lable').html('文件路径 ');
+                $('#ups_text')[0].style.display = 'none';
+                $('#filepath')[0].style.display = 'block';
+            }
+            else {
+                $('#fm_lable').html('后端服务器 ');
+                $('#filepath')[0].style.display = 'none';
+                $('#ups_text')[0].style.display = 'block';
+            }
+        });
+
+        $("#svr_add").click(function (event) {
+            event.preventDefault();
+            //alert('do ajax');
+            $.post({
+            url:'/save-site',
+            data:$('#fm_svr_add').serialize(),
+            success:function(data){
+            //success
+                $('#add_server_Modal').modal('hide');//隐藏modal
+                $('.modal-backdrop').remove();//去掉遮罩层
+                $(".lg-container").html("");
+                $(".lg-container").html(data);
+                console.log('create server加载成功');
+            },
+            error:function(){
+                console.log("提交ajax函数异常");
+            },
+            });
+        });
+
+        flush_table();
+    });
+    </script>
+{% endblock %}

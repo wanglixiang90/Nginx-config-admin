@@ -1,0 +1,25 @@
+
+{% block body %}
+	<h1>{{ sub_title }}</h1>
+	<form action="{{ fm_url }}" method="post">
+        <div id="editor" class="editor">
+            <textarea id="filetext" name="file" style="display: none">{{ file }}</textarea>
+        </div>
+        <div class="clearfix" style="margin-bottom: 30px;"></div>
+        <div class="modal-footer">
+            <button type="button" id="close" class="btn btn-default">关闭</button>
+            <button type="submit" class="btn btn-primary">保存</button>
+        </div>
+        <div class="clearfix" style="margin-bottom: 40px;"></div>
+	</form>
+
+    <script src="{{ url_for('static',filename='js/cmeditor.js') }}"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('#close').click(function () {
+                window.location.href = window.location.href;
+            });
+        });
+    </script>
+
+{% endblock %}
