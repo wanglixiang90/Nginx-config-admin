@@ -16,4 +16,3 @@ python app.py
 
 web http://you_IP:1500<br>
 default user/pass  admin/admin123
-
