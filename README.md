@@ -2,7 +2,7 @@
 nginx web config admin
 
 ## 1 install nginx in system
-yum install -y nginx  (centos)
+yum install -y nginx  (centos)<br>
 apt install -y nginx  (debian)
 
 ## 2 git clone Nginx-config-admin
@@ -14,6 +14,6 @@ python -V  or python3 -V
 ## 4 run app
 python app.py
 
-web http://you_IP:1500
+web http://you_IP:1500<br>
 default user/pass  admin/admin123
 
