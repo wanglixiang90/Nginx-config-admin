@@ -21,9 +21,9 @@ web http://you_IP:1500<br>
 default user/pass  admin/admin123
 
 ## 6 use web admin and edit nginx.conf
-add  "include /etc/nginx/sites-enabled/*.conf;" in http{ } config <br>
+add  "include /etc/nginx/sites-enabled/\*.conf;" in http{ } config <br>
 append in end <br>
 "stream {
-	include /etc/nginx/sites-enabled/*.stream;
+	include /etc/nginx/sites-enabled/\*.stream;
 }"
 
