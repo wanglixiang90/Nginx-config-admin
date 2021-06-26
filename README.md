@@ -27,5 +27,5 @@ sudo sh init.sh
 ```
 
 ## 5 web http access
-web  **http://you_IP:1500**
-default user/pass **admin/admin123**
+web  **http://you_IP:1500**  
+default user/pass **admin/admin123**  
