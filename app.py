@@ -17,9 +17,9 @@ app = Flask(__name__)
 auth = HTTPBasicAuth()
 app.config.from_pyfile('config/config.py')
 
-# 生成指定长度 num 的随机字符串, 26大写字母+纳秒戳
+# 生成指定长度 num 的随机字符串, 26大写字母+7位int
 def random_name(num: int):
-    rand_str = ''.join(random.sample(string.ascii_uppercase + str(time.time_ns()), num))
+    rand_str = ''.join(random.sample(string.ascii_uppercase + str(random.randint(1000000,9999999)), num))
     return rand_str
 
 
